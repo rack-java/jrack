@@ -1,0 +1,10 @@
+*.swo
+*.swp
+*.class
+.classpath
+.project
+/.gradle/
+/.settings/
+/build/
+/bin/
+/target/
