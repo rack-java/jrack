@@ -4,6 +4,13 @@
   <artifactId>jrack</artifactId>
   <version>0.1</version>
 
+  <repositories>
+    <repository>
+      <id>jade4j-releases</id>
+      <url>https://raw.github.com/neuland/jade4j/master/releases</url>
+    </repository>
+  </repositories>
+
   <build>
     <plugins>
       <plugin>
@@ -107,5 +114,10 @@
 			<scope>test</scope>
 			<version>4.10</version>
 		</dependency>
+    <dependency>
+      <groupId>de.neuland</groupId>
+      <artifactId>jade4j</artifactId>
+      <version>0.3.5</version>
+    </dependency>
 	</dependencies>
 </project>

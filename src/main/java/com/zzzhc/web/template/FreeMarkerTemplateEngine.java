@@ -1,5 +1,6 @@
 package com.zzzhc.web.template;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
@@ -30,7 +31,8 @@ public class FreeMarkerTemplateEngine implements ITemplateEngine {
 
 	public String render(Env env, String template) {
 		try {
-			Template t = cfg.getTemplate(template);
+			String ftlTemplate = "/" + template + ".html.ftl";
+			Template t = cfg.getTemplate(ftlTemplate);
 			Map<String, Object> rootMap = new HashMap<String, Object>();
 			rootMap.put("env", env);
 			rootMap.put("request", env.get("rack.request"));
@@ -38,6 +40,8 @@ public class FreeMarkerTemplateEngine implements ITemplateEngine {
 			StringWriter out = new StringWriter(1024);
 			t.process(rootMap, out);
 			return out.toString();
+		} catch (FileNotFoundException e) {
+			return null;
 		} catch (IOException e) {
 			throw new RackException(e);
 		} catch (TemplateException e) {

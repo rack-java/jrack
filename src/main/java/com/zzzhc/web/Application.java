@@ -14,6 +14,7 @@ import com.zzzhc.rack.IMiddleware;
 import com.zzzhc.rack.RackEnv;
 import com.zzzhc.rack.Response;
 import com.zzzhc.web.template.FreeMarkerTemplateEngine;
+import com.zzzhc.web.template.JadeTemplateEngine;
 import com.zzzhc.web.template.MultiTemplateEngine;
 
 public class Application implements IMiddleware {
@@ -68,6 +69,7 @@ public class Application implements IMiddleware {
 
 		routeSetBuilder = new RouteSetBuilder(templateEngine, loader);
 		templateEngine.addTemplateEngine(new FreeMarkerTemplateEngine());
+		templateEngine.addTemplateEngine(new JadeTemplateEngine());
 		routeSetBuilder.addPackage(this.getClass());
 	}
 

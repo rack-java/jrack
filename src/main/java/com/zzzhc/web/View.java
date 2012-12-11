@@ -54,12 +54,12 @@ public class View {
 	public void render(int status, String template) {
 		setStatus(status);
 		// TODO, locate template with other suffix, e.g. *.html.ftl
-		String ftlTemplate = "/" + template + ".html.ftl";
-		String value = templateEngine.render(env, ftlTemplate);
+		// String ftlTemplate = "/" + template + ".html.ftl";
+		String value = templateEngine.render(env, template);
 		if (value != null) {
 			body.add(value);
 		} else {
-			//TODO
+			// TODO
 		}
 	}
 
