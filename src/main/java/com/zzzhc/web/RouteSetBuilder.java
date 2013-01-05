@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.reflections.Reflections;
 import org.reflections.util.ConfigurationBuilder;
 
@@ -120,6 +119,15 @@ public class RouteSetBuilder {
 		}
 	}
 
+	private int indexOfAction(String[] actions, String action) {
+		for (int i = 0; i < actions.length; i++) {
+			if (actions[i].equals(action)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
 	private void handleResource(RouteSet routeSet, Class<?> klass) {
 		Resource resource = klass.getAnnotation(Resource.class);
 		if (resource == null) {
@@ -133,14 +141,14 @@ public class RouteSetBuilder {
 		String pathPrefix = "/" + name;
 		Method[] methods = klass.getMethods();
 
-		ArrayList<Method> resourcesMethods = new ArrayList<Method>();
+		ArrayList<Method> resourceMethods = new ArrayList<Method>();
 		for (Method method : methods) {
-			if (ArrayUtils.indexOf(RESOURCE_ACTIONS, method.getName()) != -1) {
-				resourcesMethods.add(method);
+			if (indexOfAction(RESOURCE_ACTIONS, method.getName()) != -1) {
+				resourceMethods.add(method);
 			}
 		}
 
-		for (Method method : resourcesMethods) {
+		for (Method method : resourceMethods) {
 			String n = method.getName();
 			ICondition condition = null;
 			if (n.equals("new")) {
@@ -207,7 +215,7 @@ public class RouteSetBuilder {
 
 		ArrayList<Method> resourcesMethods = new ArrayList<Method>();
 		for (Method method : methods) {
-			if (ArrayUtils.indexOf(RESOURCES_ACTIONS, method.getName()) != -1) {
+			if (indexOfAction(RESOURCES_ACTIONS, method.getName()) != -1) {
 				resourcesMethods.add(method);
 			}
 		}

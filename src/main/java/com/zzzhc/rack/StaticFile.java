@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import org.apache.commons.io.IOUtils;
+import com.google.common.io.Closeables;
 
 public class StaticFile implements IMiddleware {
 	private static final String[] ALLOWED_METHODS = new String[] { "GET",
@@ -20,7 +20,7 @@ public class StaticFile implements IMiddleware {
 
 	private File root;
 	private String cacheControl;
-	
+
 	public StaticFile(File root, String cacheControl) {
 		this.root = root;
 		this.cacheControl = cacheControl;
@@ -78,7 +78,7 @@ public class StaticFile implements IMiddleware {
 
 	private Response serving(Env env, File file) {
 		String clientLastModified = env.getString("HTTP_IF_MODIFIED_SINCE");
-		
+
 		Date lastModifiedDate = new Date(file.lastModified());
 		String lastModified = Utils.toHttpDate(lastModifiedDate);
 		if (clientLastModified != null) {
@@ -136,7 +136,11 @@ public class StaticFile implements IMiddleware {
 
 		private void close() {
 			eof = true;
-			IOUtils.closeQuietly(in);
+			
+			try {
+				Closeables.close(in, true);
+			} catch (IOException e) {
+			}
 		}
 
 		public byte[] next() {

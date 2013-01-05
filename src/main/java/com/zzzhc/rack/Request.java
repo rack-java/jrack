@@ -7,8 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.io.IOUtils;
-
+import com.google.common.io.ByteStreams;
 import com.zzzhc.rack.multipart.UploadedFile;
 
 public class Request {
@@ -195,7 +194,8 @@ public class Request {
 		}
 		InputStream in = (InputStream) env.get(Env.RACK_INPUT);
 		try {
-			String formVars = IOUtils.toString(in, env.getContentCharset());
+			byte[] data = ByteStreams.toByteArray(in);
+			String formVars = new String(data, env.getContentCharset());
 			if (formVars.charAt(formVars.length() - 1) == 0) {
 				formVars = formVars.substring(0, formVars.length() - 1);
 			}

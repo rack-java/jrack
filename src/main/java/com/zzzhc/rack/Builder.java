@@ -12,7 +12,8 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
-import org.apache.commons.io.FileUtils;
+import com.google.common.base.Charsets;
+import com.google.common.io.Files;
 
 public class Builder {
 
@@ -112,7 +113,7 @@ public class Builder {
 	}
 
 	public static Builder load(File config) throws IOException {
-		String text = FileUtils.readFileToString(config);
+		String text = Files.toString(config, Charsets.UTF_8);
 		Builder builder = new Builder();
 
 		ScriptEngineManager manager = new ScriptEngineManager();

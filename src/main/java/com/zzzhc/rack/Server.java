@@ -1,6 +1,7 @@
 package com.zzzhc.rack;
 
 import java.io.File;
+import java.util.Arrays;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -8,9 +9,12 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.base.CaseFormat;
+import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
 
 public class Server {
 
@@ -18,7 +22,7 @@ public class Server {
 
 	private Logger logger = LoggerFactory.getLogger(Server.class);
 
-	private String server = "HttpCore";
+	private String server = "http_core";
 	private String config = DEFAULT_CONFIG_RU;
 
 	private HandlerOptions handlerOptions = new HandlerOptions();
@@ -32,8 +36,9 @@ public class Server {
 
 	@SuppressWarnings("unchecked")
 	private IHandler initializeHandler() {
-		String className = "com.zzzhc.rack.handler."
-				+ StringUtils.capitalize(server) + "Handler";
+		String handlerName = CaseFormat.LOWER_UNDERSCORE.to(
+				CaseFormat.UPPER_CAMEL, server);
+		String className = "com.zzzhc.rack.handler." + handlerName + "Handler";
 		try {
 			Class<? extends IHandler> klass = (Class<? extends IHandler>) Class
 					.forName(className);
@@ -85,7 +90,7 @@ public class Server {
 				handlerOptions.setEnv(cmd.getOptionValue('E'));
 			} else {
 				String env = System.getenv("RACK_ENV");
-				if (!StringUtils.isBlank(env)) {
+				if (!Strings.isNullOrEmpty(env)) {
 					handlerOptions.setEnv(env);
 				}
 			}
@@ -98,7 +103,8 @@ public class Server {
 	}
 
 	private void showVersion() {
-		String version = StringUtils.join(Env.RACK_VERSION_VALUE, ".");
+		String version = Joiner.on('.').join(
+				Arrays.asList(Env.RACK_VERSION_VALUE));
 		System.out.println("Rack " + version);
 		System.exit(0);
 	}

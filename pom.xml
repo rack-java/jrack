@@ -1,46 +1,46 @@
 <project>
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>jrack</groupId>
-  <artifactId>jrack</artifactId>
-  <version>0.1</version>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>jrack</groupId>
+	<artifactId>jrack</artifactId>
+	<version>0.1</version>
 
-  <repositories>
-    <repository>
-      <id>jade4j-releases</id>
-      <url>https://raw.github.com/neuland/jade4j/master/releases</url>
-    </repository>
-  </repositories>
+	<scm>
+		<connection>scm:git:git@github.com:rack-java/jrack.git</connection>
+		<developerConnection>scm:git:git@github.com:rack-java/jrack.git
+		</developerConnection>
+		<url>git@github.com:rack-java/jrack.git</url>
+	</scm>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-gpg-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>sign-artifacts</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>sign</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+	<repositories>
+		<repository>
+			<id>jade4j-releases</id>
+			<url>https://raw.github.com/neuland/jade4j/master/releases</url>
+		</repository>
+	</repositories>
 
-  <dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.1</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.4</version>
-			<scope>compile</scope>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>14.0-rc1</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-cli</groupId>
@@ -114,10 +114,10 @@
 			<scope>test</scope>
 			<version>4.10</version>
 		</dependency>
-    <dependency>
-      <groupId>de.neuland</groupId>
-      <artifactId>jade4j</artifactId>
-      <version>0.3.5</version>
-    </dependency>
+		<dependency>
+			<groupId>de.neuland</groupId>
+			<artifactId>jade4j</artifactId>
+			<version>0.3.5</version>
+		</dependency>
 	</dependencies>
 </project>
